@@ -66,62 +66,66 @@ def startOpenID(request):
     """
     openid_url = settings.OPENID_URL
     c = getConsumer(request)
-    error = None
+    errors = []
 
     try:
         auth_request = c.begin(openid_url)
     except DiscoveryFailure, e:
         # Some other protocol-level failure occurred.
-        error = "OpenID discovery error: %s" % (str(e),)
-
-    if error:
-        # Render the page with an error.
-        return renderIndexPage(request, error=error)
-
-    # Add Simple Registration request information.  Some fields
-    # are optional, some are required.  It's possible that the
-    # server doesn't support sreg or won't return any of the
-    # fields.
-    sreg_request = sreg.SRegRequest(optional=['email', 'nickname'],
-                                    required=['dob'])
-    auth_request.addExtension(sreg_request)
-
-    # Add Attribute Exchange request information.
-    ax_request = ax.FetchRequest()
-    # XXX - uses myOpenID-compatible schema values, which are
-    # not those listed at axschema.org.
-    ax_request.add(
-        ax.AttrInfo('http://schema.openid.net/namePerson',
-                    required=True))
-    ax_request.add(
-        ax.AttrInfo('http://schema.openid.net/contact/web/default',
-                    required=False, count=ax.UNLIMITED_VALUES))
-    auth_request.addExtension(ax_request)
-
-    # Add PAPE request information.  We'll ask for
-    # phishing-resistant auth and display any policies we get in
-    # the response.
-    requested_policies = []
-    policy_prefix = 'policy_'
-    for k, v in request.POST.iteritems():
-        if k.startswith(policy_prefix):
-            policy_attr = k[len(policy_prefix):]
-            if policy_attr in PAPE_POLICIES:
-                requested_policies.append(getattr(pape, policy_attr))
-
-    if requested_policies:
-        pape_request = pape.Request(requested_policies)
-        auth_request.addExtension(pape_request)
-
-    # Compute the trust root and return URL values to build the
-    # redirect information.
-    trust_root = util.getViewURL(request, startOpenID)
-    return_to = util.getViewURL(request, finishOpenID)
-
-    # Send the browser to the server either by sending a redirect
-    # URL or by generating a POST form.
-    url = auth_request.redirectURL(trust_root, return_to)
-    return HttpResponseRedirect(url)
+        errors.append('OPENID_DISCOVERY_ERROR')
+    
+    if not errors:
+        # Add Simple Registration request information.  Some fields
+        # are optional, some are required.  It's possible that the
+        # server doesn't support sreg or won't return any of the
+        # fields.
+        sreg_request = sreg.SRegRequest(optional=['email', 'nickname'],
+                                        required=['dob'])
+        auth_request.addExtension(sreg_request)
+    
+        # Add Attribute Exchange request information.
+        ax_request = ax.FetchRequest()
+        # XXX - uses myOpenID-compatible schema values, which are
+        # not those listed at axschema.org.
+        ax_request.add(
+            ax.AttrInfo('http://schema.openid.net/namePerson',
+                        required=True))
+        ax_request.add(
+            ax.AttrInfo('http://schema.openid.net/contact/web/default',
+                        required=False, count=ax.UNLIMITED_VALUES))
+        auth_request.addExtension(ax_request)
+    
+        # Add PAPE request information.  We'll ask for
+        # phishing-resistant auth and display any policies we get in
+        # the response.
+        requested_policies = []
+        policy_prefix = 'policy_'
+        for k, v in request.POST.iteritems():
+            if k.startswith(policy_prefix):
+                policy_attr = k[len(policy_prefix):]
+                if policy_attr in PAPE_POLICIES:
+                    requested_policies.append(getattr(pape, policy_attr))
+    
+        if requested_policies:
+            pape_request = pape.Request(requested_policies)
+            auth_request.addExtension(pape_request)
+    
+        # Compute the trust root and return URL values to build the
+        # redirect information.
+        trust_root = util.getViewURL(request, startOpenID)
+        return_to = util.getViewURL(request, finishOpenID)
+    
+        # Send the browser to the server either by sending a redirect
+        # URL or by generating a POST form.
+        url = auth_request.redirectURL(trust_root, return_to)
+        return HttpResponseRedirect(url)
+    else:
+        response = {'response': json.dumps({'errors':errors, 'steamid':''})}
+            
+        return shortcuts.render_to_response('json.html',
+                                    response,
+                                    context_instance = RequestContext(request),
+                                    mimetype = "application/json")
 
 def finishOpenID(request):
     """
