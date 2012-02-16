@@ -19,6 +19,38 @@ from openid.store.filestore import FileOpenIDStore
 from openid.store import sqlstore
 from openid.yadis.constants import YADIS_CONTENT_TYPE
 
+def initializeTables():
+    connection.cursor()
+    
+    types = {
+        'postgresql': sqlstore.PostgreSQLStore,
+        'mysql': sqlstore.MySQLStore,
+        'sqlite3': sqlstore.SQLiteStore,
+    }
+
+    try:
+        s = types[settings.DB_STORE](connection.connection,
+                                            **tablenames)
+    except KeyError:
+        raise ImproperlyConfigured, \
+              "Database engine %s not supported by OpenID library" % \
+              (settings.DATABASE_ENGINE,)
+
+    try:
+        s.createTables()
+    except (SystemExit, KeyboardInterrupt, MemoryError), e:
+        raise
+    except:
+        # XXX This is not the Right Way to do this, but because the
+        # underlying database implementation might differ in behavior
+        # at this point, we can't reliably catch the right
+        # exception(s) here.  Ideally, the SQL store in the OpenID
+        # library would catch exceptions that it expects and fail
+        # silently, but that could be bad, too.  More ideally, the SQL
+        # store would not attempt to create tables it knows already
+        # exists.
+        pass
+    
 def getOpenIDStore(filestore_path, table_prefix):
     """
     Returns an OpenID association store object based on the database
@@ -61,27 +93,12 @@ def getOpenIDStore(filestore_path, table_prefix):
         }
 
     try:
-        s = types[settings.DATABASE_ENGINE](connection.connection,
+        s = types[settings.DB_STORE](connection.connection,
                                             **tablenames)
     except KeyError:
         raise ImproperlyConfigured, \
               "Database engine %s not supported by OpenID library" % \
               (settings.DATABASE_ENGINE,)
-
-    try:
-        s.createTables()
-    except (SystemExit, KeyboardInterrupt, MemoryError), e:
-        raise
-    except:
-        # XXX This is not the Right Way to do this, but because the
-        # underlying database implementation might differ in behavior
-        # at this point, we can't reliably catch the right
-        # exception(s) here.  Ideally, the SQL store in the OpenID
-        # library would catch exceptions that it expects and fail
-        # silently, but that could be bad, too.  More ideally, the SQL
-        # store would not attempt to create tables it knows already
-        # exists.
-        pass
 
     return s
 

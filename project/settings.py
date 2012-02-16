@@ -19,6 +19,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+DB_STORE = 'postgresql'
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql', 'mysql', 'sqlite3' or 'ado_mssql'.
 DATABASE_NAME = '/tmp/test.db'             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
