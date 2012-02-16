@@ -16,6 +16,7 @@ metadata = {
     'dependencies': (
         'python-openid',
         'boto',
+        'South',
     ),
     'description': 'Jollydream Inc',
     'license': 'Private',

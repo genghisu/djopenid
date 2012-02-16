@@ -74,7 +74,7 @@ class InstanceManager(object):
     #ami-ab36fbc2
     def launch(self, instance_type='t1.micro', 
                image_id='ami-ab36fbc2',
-               key_name='picmobo',
+               key_name='picmobo-dev',
                security_groups=('default', 'app_stack')):
         """
         launch an instance

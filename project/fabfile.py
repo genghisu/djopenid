@@ -12,7 +12,7 @@ from fabric.api import *
 from fabric.contrib.files import *
 
 svn_options='--non-interactive --trust-server-cert --username=build --password=thei1AeK  --no-auth-cache'
-project_git_url = 'git@github.com:genghisu/djopenid.com.git'
+project_git_url = 'git@github.com:genghisu/djopenid.git'
 project_dir = '/var/www/djopenid'
 
 home_dir = None
@@ -27,8 +27,8 @@ def development():
     global remote_dir
     
     env.user="ubuntu"
-    env.key_filename=os.environ['HOME'] + "/.ssh/picmobo.pem"
-    env.host_string = "107.22.173.35"
+    env.key_filename=os.environ['HOME'] + "/.ssh/picmobo-dev.pem"
+    env.host_string = "107.21.244.115"
     settings_file = 'development_settings.py'
     remote_home_dir = '/home/ubuntu'
     home_dir = '/home/han'
@@ -178,6 +178,7 @@ def full_deploy():
     staged full deployment, from scratch.
     """
     initialize()
+    upload_ssh_keys()
     prepare()
     git_deploy()
     
