@@ -9,6 +9,7 @@ from django.db import connection
 from django.template.context import RequestContext
 from django.template import loader
 from django import http
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse as reverseURL
 from django.views.generic.simple import direct_to_template
@@ -20,8 +21,14 @@ from openid.store import sqlstore
 from openid.yadis.constants import YADIS_CONTENT_TYPE
 
 def initializeTables():
+    table_prefix = settings.OPENID_TABLE_PREFIX
     connection.cursor()
     
+    tablenames = {
+        'associations_table': table_prefix + 'openid_associations',
+        'nonces_table': table_prefix + 'openid_nonces',
+    }
+        
     types = {
         'postgresql': sqlstore.PostgreSQLStore,
         'mysql': sqlstore.MySQLStore,
