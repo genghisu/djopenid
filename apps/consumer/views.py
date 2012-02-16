@@ -31,7 +31,7 @@ def getOpenIDStore():
     Return an OpenID store object fit for the currently-chosen
     database backend, if any.
     """
-    return util.getOpenIDStore('/tmp/djopenid_c_store', 'c_')
+    return util.getOpenIDStore('/tmp/djopenid_c_store', settings.OPENID_TABLE_PREFIX)
 
 def getConsumer(request):
     """

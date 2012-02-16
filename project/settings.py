@@ -19,7 +19,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DB_STORE = 'postgresql'
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql', 'mysql', 'sqlite3' or 'ado_mssql'.
 DATABASE_NAME = '/tmp/test.db'             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
@@ -87,3 +86,5 @@ INSTALLED_APPS = (
 )
 
 OPENID_URL = 'http://steamcommunity.com/openid'
+DB_STORE = 'postgresql'
+OPENID_TABLE_PREFIX = 'openid_'
