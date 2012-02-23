@@ -1,0 +1,17 @@
+*~
+*.orig
+*.pyc
+*.rej
+.installed.cfg
+.project
+.pydevproject
+*.egg-info/
+__minitage__*
+bin/*
+develop-eggs
+downloads
+eggs
+log
+parts
+project/local_settings.py
+tmp
