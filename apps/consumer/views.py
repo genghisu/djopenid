@@ -29,10 +29,7 @@ POLICY_PAIRS = [(p, getattr(pape, p))
 def serverSettings(request):
     errors = []
     target_js = """jQuery('#global_header').hide(); jQuery('#userControls').hide(); jQuery('#footer').hide(); jQuery('#mainBody').width(320); jQuery('.OpenID_MainHeaderBody').width(320).css('background-image', 'none'); jQuery('#lowerContents').width(320).css('background-image', 'none'); jQuery('#lowerRightContents').width(300).css('background-image', 'none').css('float', 'none').css('padding-left', '20px'); jQuery('.OpenID_LowerLeftContents').width(320).height(160); jQuery('.OpenID_Legal').css('margin-top', '30px'); jQuery('#loginAuthCodeModal').width(312).css('left', '0px').css('margin-left', '-25px');  jQuery('.modal_top_band').width(312); jQuery('.modal_box').width(270).height(355); jQuery('.auth_buttonset').width(270); jQuery('.authcode_entry_area').css('margin-top', '25px'); jQuery('.auth_button').css('margin-top', '5px'); jQuery.noConflict();"""
-    viewport_js = """var meta = document.createElement('meta'); " \
-    "meta.setAttribute( 'name', 'viewport' ); " \
-    "meta.setAttribute( 'content', 'width = device-width, initial-scale = 1.0, user-scalable = yes' ); " \
-    "document.getElementsByTagName('head')[0].appendChild(meta);"""
+    viewport_js = """var meta = document.createElement('meta'); meta.setAttribute( 'name', 'viewport' ); meta.setAttribute( 'content', 'width = device-width, initial-scale = 1.0, user-scalable = yes' ); document.getElementsByTagName('head')[0].appendChild(meta);"""
     
     response = {'response': json.dumps({'errors':errors, 'setupJS':target_js, 'viewPortJS':viewport_js})}
             
