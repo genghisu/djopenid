@@ -124,8 +124,8 @@ def startOpenID(request, target = 'mobile'):
     
         # Compute the trust root and return URL values to build the
         # redirect information.
-        trust_root = util.getViewURL(request, startOpenID, args=[target])
-        return_to = util.getViewURL(request, finishOpenID, args=[target])
+        trust_root = util.getViewURL(request, startOpenID, kwargs={'target':target})
+        return_to = util.getViewURL(request, finishOpenID, kwargs={'target':target})
     
         # Send the browser to the server either by sending a redirect
         # URL or by generating a POST form.
@@ -165,7 +165,7 @@ def finishOpenID(request, target='mobile'):
 
         # Get a response object indicating the result of the OpenID
         # protocol.
-        return_to = util.getViewURL(request, finishOpenID, args=[target])
+        return_to = util.getViewURL(request, finishOpenID, kwargs={'target':target})
         response = c.complete(request_args, return_to)
 
         # Get a Simple Registration response object if response
