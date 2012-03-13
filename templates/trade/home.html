@@ -2,5 +2,5 @@
 {% if steam_id %}
 	<a href='{% url init-trade-request %}'>Init Trade Request</a>
 {% else %}
-	<a href='{% url start-OpenID-site %}'>Login</a>
+	<a href='{% url start-OpenID-site "site" %}'>Login</a>
 {% endif %}
