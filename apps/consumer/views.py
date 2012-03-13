@@ -204,7 +204,7 @@ def startOpenID(request):
         # Compute the trust root and return URL values to build the
         # redirect information.
         trust_root = util.getViewURL(request, startOpenID)
-        return_to = util.getViewURL(request, 'finish-OpenID', kwargs={'target':'mobile'})
+        return_to = util.getViewURL(request, 'finish-OpenID', args=['mobile'])
     
         # Send the browser to the server either by sending a redirect
         # URL or by generating a POST form.
