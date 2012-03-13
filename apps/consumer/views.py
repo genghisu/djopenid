@@ -223,7 +223,14 @@ def finish_OpenID_site(request):
     else:
         errors.append('OPENID_FAILURE')
 
-    return HttpResponseRedirect(reverse('trade-home'))
+    response = {'response': json.dumps({'errors':errors, 'steamid':steamid, 'session':request.session})}
+            
+    return shortcuts.render_to_response('json.html',
+                                        response,
+                                        context_instance = RequestContext(request),
+                                        mimetype = "application/json")
+    
+    #return HttpResponseRedirect(reverse('trade-home'))
 
 def startOpenID(request):
     """
