@@ -9,10 +9,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from trade.models import TradeRequest
 
 def home(request):
-    steamid = request.session.get('steamid', None)
+    steam_id = request.session.get('steam_id', None)
 
     return shortcuts.render_to_response('trade/home.html',
-                                        {'steamid':steamid},
+                                        {'steam_id':steam_id},
                                         context_instance = RequestContext(request)) 
 def steam_login(request):
     pass
