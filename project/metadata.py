@@ -17,6 +17,7 @@ metadata = {
         'python-openid',
         'boto',
         'South',
+        'django-extensions',
     ),
     'description': 'Jollydream Inc',
     'license': 'Private',

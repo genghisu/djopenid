@@ -1,0 +1,5 @@
+{% if steamid %}
+	<a href='{% url init-trade-request %}'>Init Trade Request</a>
+{% else %}
+	<a href='{% url start-OpenID-site %}'>Login</a>
+{% endif %}

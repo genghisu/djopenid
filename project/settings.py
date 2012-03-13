@@ -76,6 +76,9 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'django.contrib.admin', 
+    'django.contrib.sites',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'south',
@@ -83,6 +86,7 @@ INSTALLED_APPS = (
     'consumer',
     'server',
     'django_ec2',
+    'trade',
 )
 
 OPENID_URL = 'http://steamcommunity.com/openid'
