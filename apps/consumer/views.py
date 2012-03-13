@@ -165,7 +165,7 @@ def finish_OpenID_site(request):
 
         # Get a response object indicating the result of the OpenID
         # protocol.
-        return_to = util.getViewURL(request, finishOpenID)
+        return_to = util.getViewURL(request, finish_OpenID_site)
         response = c.complete(request_args, return_to)
 
         # Get a Simple Registration response object if response
