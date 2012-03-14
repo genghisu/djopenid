@@ -11,6 +11,7 @@ except ImportError, e:
     warnings.warn("Could not import OpenID library.  Please consult the djopenid README.")
     sys.exit(1)
 
+PROJECT_ROOT = join(dirname(normpath(__file__)), '..')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
