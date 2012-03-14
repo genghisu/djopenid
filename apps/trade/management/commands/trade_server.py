@@ -13,6 +13,9 @@ class Command(NoArgsCommand):
     requires_model_validation = True
     can_import_settings = True
     
+    def handle_incoming_data(self, data):
+        print data
+        
     def handle(self, *test_labels, **options):
         HOST = '10.112.49.144'                 # Symbolic name meaning all available interfaces
         PORT = 25251              # Arbitrary non-privileged port
@@ -26,6 +29,7 @@ class Command(NoArgsCommand):
             data = conn.recv(1024)
             if data:
                 handle_incoming_data(data)
+            print "Looping"
             trade_requests = TradeRequest.objects.filter(processed = False)
             if trade_requests:
                 outgoing_data = [tr.as_dict() for tr in trade_requests]
@@ -35,5 +39,3 @@ class Command(NoArgsCommand):
                     trade_request.processed = True
                     trade_request.save()
                     
-    def handle_incoming_data(self, data):
-        print data
