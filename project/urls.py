@@ -7,5 +7,5 @@ urlpatterns = patterns(
     '',
     ('^consumer/', include('consumer.urls')),
     ('^trade/', include('trade.urls')),
-    (r'^admin/(.*)', admin.site.root),
+    (r'^admin/', include(admin.site.urls)),
 )
