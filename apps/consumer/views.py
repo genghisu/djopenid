@@ -124,7 +124,7 @@ def startOpenIDWithTarget(request, target = 'mobile'):
     
         # Compute the trust root and return URL values to build the
         # redirect information.
-        trust_root = util.getViewURL(request, 'start-OpenID', kwargs={'target':target})
+        trust_root = util.getViewURL(request, startOpenID)
         return_to = util.getViewURL(request, 'finish-OpenID', kwargs={'target':target})
     
         # Send the browser to the server either by sending a redirect
