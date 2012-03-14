@@ -310,13 +310,7 @@ def finishOpenID(request, target='mobile'):
                                             context_instance = RequestContext(request),
                                             mimetype = "application/json")
     else:
-        response = {'response': json.dumps({'errors':errors, 'steamid':steamid})}
-                
-        return shortcuts.render_to_response('json.html',
-                                            response,
-                                            context_instance = RequestContext(request),
-                                            mimetype = "application/json")
-        #return HttpResponseRedirect(reverse('trade-home'))
+        return HttpResponseRedirect(reverse('trade-home'))
 
 def rpXRDS(request):
     """
