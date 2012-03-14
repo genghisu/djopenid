@@ -14,7 +14,7 @@ class Command(NoArgsCommand):
     can_import_settings = True
     
     def handle(self, *test_labels, **options):
-        HOST = '10.112.49.144'                 # Symbolic name meaning all available interfaces
+        HOST = '107.21.244.115'                 # Symbolic name meaning all available interfaces
         PORT = 50000              # Arbitrary non-privileged port
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((HOST, PORT))
