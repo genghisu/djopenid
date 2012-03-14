@@ -14,7 +14,7 @@ class TradeSession(models.Model):
 class TradeRequestManager(models.Manager):
     def create_new(self, steam_id):
         trade_request = None
-        if not self.objects.filter(steam_id = steam_id, processed = False):
+        if not TradeRequest.objects.filter(steam_id = steam_id, processed = False):
             trade_session = TradeSession()
             trade_session.save()
             trade_request = TradeRequest(steam_id = steam_id, trade_session = trade_session)
