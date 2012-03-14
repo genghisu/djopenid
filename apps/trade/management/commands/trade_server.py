@@ -22,10 +22,10 @@ class Command(NoArgsCommand):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((HOST, PORT))
         print "Listening for socket connection"
-        s.setblocking(0)
         s.listen(1)
         conn, addr = s.accept()
         print 'Connected by', addr
+        s.setblocking(0)
         while 1:
             try:
                 data = conn.recv(1024)
