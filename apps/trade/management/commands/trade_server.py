@@ -39,7 +39,7 @@ class Command(NoArgsCommand):
             if trade_requests:
                 outgoing_data = [tr.as_dict() for tr in trade_requests]
                 try:
-                    connect.sendall(str(outgoing_data))
+                    conn.sendall(str(outgoing_data))
                     print "Sending: %s" % (str(outgoing_data))
                 except:
                     pass
