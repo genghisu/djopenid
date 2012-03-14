@@ -37,18 +37,12 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
-
-# URL that handles the media served from MEDIA_ROOT.
-# Example: "http://media.lawrence.com"
-MEDIA_URL = ''
-
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+STATIC_ROOT = join(PROJECT_ROOT, 'static')
+STATIC_URL = '/static/'
+MEDIA_ROOT = join(PROJECT_ROOT,  'media')
+MEDIA_URL = '/media/'
+STATIC_LOCAL_ROOT = join(PROJECT_ROOT, 'static_local')
+STATIC_LOCAL_URL = '/static_local/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'u^bw6lmsa6fah0$^lz-ct$)y7x7#ag92-z+y45-8!(jk0lkavy'
