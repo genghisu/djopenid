@@ -22,19 +22,27 @@ class Command(NoArgsCommand):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((HOST, PORT))
         print "Listening for socket connection"
+        s.setblocking(0)
         s.listen(1)
         conn, addr = s.accept()
         print 'Connected by', addr
         while 1:
-            data = conn.recv(1024)
-            if data:
-                handle_incoming_data(data)
+            try:
+                data = conn.recv(1024)
+                if data:
+                    handle_incoming_data(data)
+            except:
+                pass
+            
             print "Looping"
             trade_requests = TradeRequest.objects.filter(processed = False)
             if trade_requests:
                 outgoing_data = [tr.as_dict() for tr in trade_requests]
-                connect.sendall(str(outgoing_data))
-                print "Sending: %s" % (str(outgoing_data))
+                try:
+                    connect.sendall(str(outgoing_data))
+                    print "Sending: %s" % (str(outgoing_data))
+                except:
+                    pass
                 for trade_request in trade_requests:
                     trade_request.processed = True
                     trade_request.save()
