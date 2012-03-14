@@ -15,7 +15,7 @@ class Command(NoArgsCommand):
     
     def handle(self, *test_labels, **options):
         HOST = '107.21.244.115'                 # Symbolic name meaning all available interfaces
-        PORT = 50000              # Arbitrary non-privileged port
+        PORT = 50009              # Arbitrary non-privileged port
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((HOST, PORT))
         print "Listening for socket connection"
