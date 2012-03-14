@@ -44,6 +44,12 @@ MEDIA_URL = '/media/'
 STATIC_LOCAL_ROOT = join(PROJECT_ROOT, 'static_local')
 STATIC_LOCAL_URL = '/static_local/'
 
+
+# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
+# trailing slash.
+# Examples: "http://foo.com/media/", "/media/".
+ADMIN_MEDIA_PREFIX = '/static/admin_media/'
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'u^bw6lmsa6fah0$^lz-ct$)y7x7#ag92-z+y45-8!(jk0lkavy'
 
