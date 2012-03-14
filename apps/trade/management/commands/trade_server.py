@@ -18,6 +18,7 @@ class Command(NoArgsCommand):
         PORT = 50000              # Arbitrary non-privileged port
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((HOST, PORT))
+        print "Listening for socket connection"
         s.listen(1)
         conn, addr = s.accept()
         while 1:
