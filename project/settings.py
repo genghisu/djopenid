@@ -3,6 +3,7 @@
 import os
 import sys
 import warnings
+from os.path import join,  dirname,  normpath
 
 try:
     import openid
